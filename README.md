@@ -5,3 +5,4 @@ process managment tool
 * Python 2 or 3
 * Psutil
 * Readline
+* PyQt4

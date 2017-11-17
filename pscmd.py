@@ -3,7 +3,7 @@ try:
     import readline
 except:
     pass
-import psutil
+import pscore
 
 class PsCmd(cmd.Cmd):
 
@@ -11,10 +11,10 @@ class PsCmd(cmd.Cmd):
     
     def do_ls(self, args):
         """List all process"""
-        proc_list = psutil.process_iter(attrs=['name', 'pid'])
+        proc_list = pscore.ps_list()
         print "Process ID\tProcess name\n"
         for proc in proc_list:
-            print "%-10d\t%s" % (proc.info['pid'], proc.info['name'])
+            print "%-10d\t%s" % (proc['pid'], proc['name'])
     
     do_list = do_ls
     do_dir = do_ls
@@ -27,3 +27,13 @@ class PsCmd(cmd.Cmd):
 
     def emptyline(self):
         return False
+
+
+def cmd_launcher():
+    cmd = PsCmd()
+    try:
+        cmd.cmdloop()
+    except KeyboardInterrupt:
+        print "\nCtrl-C captured. terminating"
+        return 1
+    return 0
