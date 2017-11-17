@@ -1,8 +1,13 @@
-import psutil
+import pscmd
 
 
-proc_iter = psutil.process_iter(attrs=['name', 'pid'])
+def main():
+    cmd = pscmd.PsCmd()
+    try:
+        cmd.cmdloop()
+    except KeyboardInterrupt:
+        print "\nCtrl-C captured. terminating"
 
-print "Process ID\tProcess name\n"
-for proc in proc_iter:
-    print "%-10d\t%s" % (proc.info['pid'], proc.info['name'])
+
+if __name__ == "__main__":
+    main()
